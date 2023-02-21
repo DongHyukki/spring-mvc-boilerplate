@@ -4,11 +4,13 @@ import com.donghyukki.common.exception.CustomExceptionType
 import com.donghyukki.common.exception.GFRuntimeException
 import com.donghyukki.common.redis.RedisAtomicSetResult
 import com.donghyukki.common.redis.RedisAtomicTemplate
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.http.HttpStatus
 import org.springframework.orm.ObjectOptimisticLockingFailureException
 import org.springframework.stereotype.Component
 
 @Component
+@ConditionalOnBean(name = ["standaloneRedisConnectionFactory"])
 class ConcurrencyManager(
     private val atomicTemplate: RedisAtomicTemplate
 ) {

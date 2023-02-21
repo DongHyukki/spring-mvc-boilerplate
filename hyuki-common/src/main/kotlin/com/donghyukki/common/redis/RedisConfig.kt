@@ -1,6 +1,7 @@
 package com.donghyukki.common.redis
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
@@ -11,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
+@ConditionalOnProperty(prefix = "spring", name = ["redis.host", "redis.port"])
 class RedisConfig {
 
     @Value("\${spring.redis.host}")
@@ -19,7 +21,7 @@ class RedisConfig {
     @Value("\${spring.redis.port}")
     lateinit var port: String
 
-    @Bean
+    @Bean("standaloneRedisConnectionFactory")
     fun standaloneRedisConnectionFactory(): RedisConnectionFactory {
         val redisStandaloneConfiguration = RedisStandaloneConfiguration(host, port.toInt())
         return LettuceConnectionFactory(redisStandaloneConfiguration)

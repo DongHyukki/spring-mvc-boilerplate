@@ -8,6 +8,7 @@ import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.reflect.MethodSignature
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
@@ -18,6 +19,7 @@ import kotlin.time.toJavaDuration
 
 @Component
 @Aspect
+@ConditionalOnBean(name = ["standaloneRedisConnectionFactory"])
 class IdempotencyAspect(
     private val concurrencyManager: ConcurrencyManager,
     private val redisTemplate: RedisTemplate<String, Any>,

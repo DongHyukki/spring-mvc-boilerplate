@@ -3,6 +3,7 @@ package com.donghyukki.common.redis
 import com.donghyukki.common.exception.CustomExceptionType
 import com.donghyukki.common.exception.GFRuntimeException
 import com.donghyukki.common.extensions.trimNewLine
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.data.redis.connection.ReturnType
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.serializer.StringRedisSerializer
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 
 @Component
+@ConditionalOnBean(name = ["standaloneRedisConnectionFactory"])
 class RedisAtomicTemplate(
     private val redisTemplate: RedisTemplate<String, Any>,
 ) {
