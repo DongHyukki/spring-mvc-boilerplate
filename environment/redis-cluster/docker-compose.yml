@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  redis-cluster-master-1:
+    container_name: redis-cluster-master-1
+    image: redis:6.2.3
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./redis-master-1.conf:/etc/redis.conf
+    restart: always
+    ports:
+      - "7001:7001"
+      - "17001:17001"
+      - "7002:7002"
+      - "17002:17002"
+      - "7003:7003"
+      - "17003:17003"
+      - "7004:7004"
+      - "17004:17004"
+      - "7005:7005"
+      - "17005:17005"
+      - "7006:7006"
+      - "17006:17006"
+  redis-cluster-master-2:
+    network_mode: "service:redis-cluster-master-1"
+    container_name: redis-cluster-master-2
+    image: redis:6.2.3
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./redis-master-2.conf:/etc/redis.conf
+    restart: always
+
+
+  redis-cluster-master-3:
+    network_mode: "service:redis-cluster-master-1"
+    container_name: redis-cluster-master-3
+    image: redis:6.2.3
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./redis-master-3.conf:/etc/redis.conf
+    restart: always
+
+
+  redis-cluster-slave-1:
+    network_mode: "service:redis-cluster-master-1"
+    container_name: redis-cluster-slave-1
+    image: redis:6.2.3
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./redis-slave-1.conf:/etc/redis.conf
+    restart: always
+
+
+  redis-cluster-slave-2:
+    network_mode: "service:redis-cluster-master-1"
+    container_name: redis-cluster-slave-2
+    image: redis:6.2.3
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./redis-slave-2.conf:/etc/redis.conf
+    restart: always
+
+  redis-cluster-slave-3:
+    network_mode: "service:redis-cluster-master-1"
+    container_name: redis-cluster-slave-3
+    image: redis:6.2.3
+    command: redis-server /etc/redis.conf
+    volumes:
+      - ./redis-slave-3.conf:/etc/redis.conf
+    restart: always
+
+  redis-cluster-master-entry:
+    network_mode: "service:redis-cluster-master-1"
+    image: redis:6.2.3
+    container_name: redis-cluster-master-entry
+    command: redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-yes --cluster-replicas 1
+    depends_on:
+      - redis-cluster-master-1
+      - redis-cluster-master-2
+      - redis-cluster-master-3
+      - redis-cluster-slave-1
+      - redis-cluster-slave-2
+      - redis-cluster-slave-3
