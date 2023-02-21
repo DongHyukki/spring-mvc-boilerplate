@@ -6,12 +6,10 @@ interface ExceptionType {
     val status: HttpStatus
     val message: String
     val code: String?
-    var enableAlert: Boolean?
 }
 
 class CustomExceptionType(
     override val status: HttpStatus,
     override val message: String,
     override val code: String?,
-    override var enableAlert: Boolean? = true
 ) : ExceptionType

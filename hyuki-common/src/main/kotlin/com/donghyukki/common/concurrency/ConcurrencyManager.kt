@@ -1,7 +1,7 @@
 package com.donghyukki.common.concurrency
 
 import com.donghyukki.common.exception.CustomExceptionType
-import com.donghyukki.common.exception.GFRuntimeException
+import com.donghyukki.common.exception.HyukiRuntimeException
 import com.donghyukki.common.redis.RedisAtomicSetResult
 import com.donghyukki.common.redis.RedisAtomicTemplate
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
@@ -46,7 +46,7 @@ class ConcurrencyManager(
             } catch (ex: ObjectOptimisticLockingFailureException) {
                 attemptCount++
                 if (attemptCount == maxAttemptCount) {
-                    throw GFRuntimeException(
+                    throw HyukiRuntimeException(
                         CustomExceptionType(
                             HttpStatus.INTERNAL_SERVER_ERROR,
                             "Exceed Max Attempt Count Optimistic Lock Retry",

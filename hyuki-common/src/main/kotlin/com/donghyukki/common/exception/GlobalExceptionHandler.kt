@@ -14,8 +14,8 @@ class GlobalExceptionHandler {
 
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    @ExceptionHandler(GFRuntimeException::class)
-    fun handleAppException(ex: GFRuntimeException): HyukiResponse<String> {
+    @ExceptionHandler(HyukiRuntimeException::class)
+    fun handleAppException(ex: HyukiRuntimeException): HyukiResponse<String> {
         logger.info(ex.message)
 
         return HyukiResponse.fail(

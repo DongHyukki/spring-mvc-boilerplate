@@ -1,8 +1,7 @@
 package com.donghyukki.common.exception
 
-class GFRuntimeException(
+class HyukiRuntimeException(
     private val type: ExceptionType,
 ) : RuntimeException(type.message) {
     fun getType() = type
-    fun getEnableAlert() = type.enableAlert
 }
