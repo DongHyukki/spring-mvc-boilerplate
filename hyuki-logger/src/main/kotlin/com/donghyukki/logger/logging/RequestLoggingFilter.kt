@@ -39,7 +39,8 @@ class RequestLoggingFilter : OncePerRequestFilter() {
 
             accessLogger.info("", StructuredArguments.value("context", RequestContext.toLog()))
 
-            response.copyBodyToResponse()
+            response.
+            copyBodyToResponse()
             RequestContext.clearContext()
         }
     }
@@ -63,6 +64,8 @@ class RequestLoggingFilter : OncePerRequestFilter() {
         log["bodySize"] = request.contentLength
         log["createAt"] = requestAt.toString()
 
+        RequestContext.remove("requestBody")
+
         return log
     }
 
@@ -83,6 +86,8 @@ class RequestLoggingFilter : OncePerRequestFilter() {
         log["body"] = RequestContext.get("responseBody")
         log["bodySize"] = response.contentSize
         log["createAt"] = responseAt.toString()
+
+        RequestContext.remove("responseBody")
 
         return log
     }

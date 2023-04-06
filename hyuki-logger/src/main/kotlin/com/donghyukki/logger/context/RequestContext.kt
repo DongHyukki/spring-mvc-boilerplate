@@ -28,9 +28,11 @@ class RequestContext {
             return CONTEXT_DATA.get()[key]
         }
 
+        fun remove(key: String) {
+            CONTEXT_DATA.get().remove(key)
+        }
+
         fun toLog(): Map<String, Any?> {
-            CONTEXT_DATA.get().remove("requestBody")
-            CONTEXT_DATA.get().remove("responseBody")
             return CONTEXT_DATA.get().toMap()
         }
     }
