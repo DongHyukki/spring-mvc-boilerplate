@@ -54,6 +54,27 @@
         </encoder>
     </appender>
 
+    <!-- kafka initialize only dev, prd phase -->
+    <springProfile name="dev,prd">
+        <springProperty name="profiles" source="spring.profiles.active" defaultValue="local"/>
+
+        <property resource="logback-${profiles}.properties"/>
+
+        <appender name="kafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
+            <encoder class="com.github.danielwegener.logback.kafka.encoding.PatternLayoutKafkaMessageEncoder">
+                <layout class="net.logstash.logback.layout.LogstashLayout"/>
+            </encoder>
+            <topic>${kafka.topic.name}</topic>
+            <producerConfig>bootstrap.servers=${kafka.host}</producerConfig>
+        </appender>
+
+        <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+            <appender-ref ref="kafkaAppender"/>
+        </appender>
+
+        <logger name="org.apache.kafka" level="ERROR"/>
+    </springProfile>
+
     <!-- logger for sleuth -->
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="feign" level="DEBUG"/>
