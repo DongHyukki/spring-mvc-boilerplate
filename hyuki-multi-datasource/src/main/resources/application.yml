@@ -1,0 +1,38 @@
+first:
+  datasource:
+    unique-resource-name: firstDataSource
+    xa-data-source-class-name: com.mysql.cj.jdbc.MysqlXADataSource
+    pool-size: 10
+    xa-properties:
+      user: root
+      password: root
+      url: jdbc:mysql://localhost:3308/first_scheme?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    max-lifetime: 1800000
+    borrow-connection-timeout: 30000
+
+second:
+  datasource:
+    unique-resource-name: secondDataSource
+    xa-data-source-class-name: com.mysql.cj.jdbc.MysqlXADataSource
+    pool-size: 10
+    xa-properties:
+      user: root
+      password: root
+      url: jdbc:mysql://localhost:3309/second_scheme?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    max-lifetime: 1800000
+    borrow-connection-timeout: 30000
+
+spring:
+  jta:
+    enabled: true
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: validate
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        transaction.jta.platform: com.atomikos.icatch.jta.hibernate4.AtomikosPlatform
+        show_sql: true
+        jta:
+          preferred-managed-transaction-provider: atomikos
+
+

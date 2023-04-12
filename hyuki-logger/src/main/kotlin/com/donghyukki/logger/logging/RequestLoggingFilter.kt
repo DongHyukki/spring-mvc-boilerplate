@@ -39,8 +39,8 @@ class RequestLoggingFilter : OncePerRequestFilter() {
 
             accessLogger.info("", StructuredArguments.value("context", RequestContext.toLog()))
 
-            response.
-            copyBodyToResponse()
+            response
+                .copyBodyToResponse()
             RequestContext.clearContext()
         }
     }

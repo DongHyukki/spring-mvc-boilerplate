@@ -7,6 +7,7 @@ import org.springframework.data.redis.connection.MessageListener
 import org.springframework.stereotype.Component
 
 @Component
+@ConditionalOnRedisProperty
 class GlobalRedisEventListener(
     private val eventPublisher: EventPublisher,
     private val transactionInvoker: TransactionInvoker

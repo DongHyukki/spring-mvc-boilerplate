@@ -10,5 +10,4 @@ class SpringContextConfigurer {
 
     @Bean
     fun tracer(): Tracer = mockk(relaxed = true)
-
 }

@@ -8,6 +8,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.listener.RedisMessageListenerContainer
 
 @Configuration
+@ConditionalOnRedisProperty
 class RedisEventListenerConfig {
 
     private val logger = LoggerFactory.getLogger(this::class.java)

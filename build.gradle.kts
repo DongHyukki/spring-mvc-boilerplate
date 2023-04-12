@@ -30,6 +30,9 @@ val kotestSpringExtensionVersion = "1.1.2"
 val openapiVersion = "1.6.14"
 val mockkVersion = "1.9.3"
 val springmockkVersion = "3.1.2"
+dependencies {
+    implementation("com.mysql:mysql-connector-j:8.0.32")
+}
 
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")

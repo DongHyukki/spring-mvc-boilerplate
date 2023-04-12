@@ -83,6 +83,8 @@
     <logger name="org.springframework.cloud.sleuth.log" level="INFO"/>
     <logger name="org.springframework.cloud.sleuth.trace" level="INFO"/>
 
+    <logger name="com.atomikos" level="DEBUG"/>
+
     <logger name="ACCESS_LOGGER" additivity="false" level="INFO">
         <appender-ref ref="ACCESS"/>
     </logger>

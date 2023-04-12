@@ -3,10 +3,8 @@ package com.donghyukki.app.config
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import redis.embedded.RedisServer
-import java.io.File
 import java.io.IOException
 import java.net.Socket
-import java.util.Objects
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
