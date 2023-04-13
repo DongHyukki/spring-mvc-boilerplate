@@ -6,7 +6,8 @@ first:
     xa-properties:
       user: root
       password: root
-      url: jdbc:mysql://localhost:3308/first_scheme?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3308/first_scheme?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&pinGlobalTxToPhysicalConnection=true
+
     max-lifetime: 1800000
     borrow-connection-timeout: 30000
 
@@ -18,7 +19,7 @@ second:
     xa-properties:
       user: root
       password: root
-      url: jdbc:mysql://localhost:3309/second_scheme?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3309/second_scheme?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&pinGlobalTxToPhysicalConnection=true
     max-lifetime: 1800000
     borrow-connection-timeout: 30000
 
