@@ -1,5 +1,7 @@
 package com.donghyukki.common.cache
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer
 import org.springframework.cache.annotation.EnableCaching
@@ -16,7 +18,20 @@ import java.time.Duration
 class CacheConfig(
     @Value("\${spring.config.activate.on-profile:UNKNOWN_PHASE}")
     val phase: String,
+    objectMapper: ObjectMapper
 ) {
+    companion object {
+        var cacheValueMapper: ObjectMapper? = null
+    }
+
+    init {
+        cacheValueMapper = objectMapper.copy()
+        cacheValueMapper!!.activateDefaultTyping(
+            objectMapper.polymorphicTypeValidator,
+            ObjectMapper.DefaultTyping.EVERYTHING,
+            JsonTypeInfo.As.PROPERTY
+        )
+    }
 
     @Bean
     fun cacheConfiguration(): RedisCacheConfiguration {
@@ -30,7 +45,11 @@ class CacheConfig(
             .serializeValuesWith(
                 RedisSerializationContext
                     .SerializationPair
-                    .fromSerializer(GenericJackson2JsonRedisSerializer())
+                    .fromSerializer(
+                        GenericJackson2JsonRedisSerializer(
+                            cacheValueMapper!!
+                        )
+                    )
             )
     }
 
